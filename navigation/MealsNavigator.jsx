@@ -36,6 +36,11 @@ const MealsNavigator = createStackNavigator(
   }
 );
 
+createStackNavigator({
+  Favorites: FavoritesScreen,
+  MealDetail: MealDetailsScreen
+});
+
 const tabScreenConfig = {
   Meals: {
     screen: MealsNavigator,
