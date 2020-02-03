@@ -41,7 +41,8 @@ const styles = StyleSheet.create({
 		width: '100%',
 		backgroundColor: '#f5f5f5',
 		borderRadius: 10,
-		overflow: 'hidden'
+		overflow: 'hidden',
+		marginVertical: 10
 	},
 
 	bgImage: {
@@ -73,9 +74,9 @@ const styles = StyleSheet.create({
 
 	title: {
 		// fontFamily: 'open-sans-bold',
+		fontWeight: 'bold',
 		fontSize: 20,
 		color: 'white',
-		fontWeight: 'bold',
 		textAlign: 'center'
 	}
 });
