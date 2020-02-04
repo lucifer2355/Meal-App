@@ -9,7 +9,7 @@ import CategoriesScreen from '../screens/CategoriesScreen';
 import CategoryMealsScreen from '../screens/CategoryMealsScreen';
 import MealDetailsScreen from '../screens/MealDetailsScreen';
 import Colors from '../constants/Colors';
-import { Platform } from 'react-native';
+import { Platform, Text } from 'react-native';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import { Ionicons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
@@ -18,6 +18,13 @@ import FiltersScreen from '../screens/FiltersScreen';
 const defaultStackNavOptions = {
 	headerStyle: {
 		backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : ''
+	},
+	headerTitleStyle: {
+		// fontFamily: 'open-sans'
+		fontWeight: 'bold'
+	},
+	headerBackTitleStyle: {
+		fontFamily: 'normal'
 	},
 	headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor,
 	headerTitle: 'A Screen'
@@ -60,7 +67,13 @@ const tabScreenConfig = {
 					<Ionicons name="ios-restaurant" size={25} color={tabInfo.tintColor} />
 				);
 			},
-			tabBarColor: Colors.primaryColor
+			tabBarColor: Colors.primaryColor,
+			tabBarLabel:
+				Platform.OS === 'android' ? (
+					<Text style={{ fontWeight: 'bold' }}>Meals</Text>
+				) : (
+					'Meals'
+				)
 		}
 	},
 	Favorites: {
@@ -69,7 +82,13 @@ const tabScreenConfig = {
 			tabBarIcon: tabInfo => {
 				return <Ionicons name="ios-star" size={25} color={tabInfo.tintColor} />;
 			},
-			tabBarColor: Colors.accentColor
+			tabBarColor: Colors.accentColor,
+			tabBarLabel:
+				Platform.OS === 'android' ? (
+					<Text style={{ fontWeight: 'bold' }}>Favorites</Text>
+				) : (
+					'Favorites'
+				)
 		}
 	}
 };
@@ -85,17 +104,40 @@ const MealsFavTabNavigator =
 		  })
 		: createBottomTabNavigator(tabScreenConfig, {
 				tabBarOptions: {
+					labelStyle: {
+						fontWeight: 'bold'
+					},
 					activeTintColor: Colors.accentColor
 				}
 		  });
 
-const FiltersNavigator = createStackNavigator({
-	Filters: FiltersScreen
-});
+const FiltersNavigator = createStackNavigator(
+	{
+		Filters: FiltersScreen
+	},
+	{
+		defaultNavigationOptions: defaultStackNavOptions
+	}
+);
 
-const MainNavigator = createDrawerNavigator({
-	MealsFavs: MealsFavTabNavigator,
-	Filters: FiltersNavigator
-});
+const MainNavigator = createDrawerNavigator(
+	{
+		MealsFavs: {
+			screen: MealsFavTabNavigator,
+			navigationOptions: {
+				drawerLabel: 'Meals'
+			}
+		},
+		Filters: FiltersNavigator
+	},
+	{
+		contentOptions: {
+			activeTintColor: Colors.accentColor,
+			labelStyle: {
+				fontWeight: 'bold'
+			}
+		}
+	}
+);
 
 export default createAppContainer(MainNavigator);
