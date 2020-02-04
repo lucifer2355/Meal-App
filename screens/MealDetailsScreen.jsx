@@ -33,7 +33,7 @@ const MealDetailScreen = props => {
 			))}
 			<Text style={styles.title}>Steps</Text>
 			{selectedMeal.steps.map(step => (
-				<ListItem key={step}>{step}</ListItem>
+				<ListItem key={step}>{step}</ListItem >
 			))}
 		</ScrollView>
 	);
